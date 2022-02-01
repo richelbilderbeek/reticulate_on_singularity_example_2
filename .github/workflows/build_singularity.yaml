@@ -40,3 +40,7 @@ jobs:
       - name: Show help of container
         run: singularity run-help image.sif
 
+      - name: Demo container
+        run: cat demo_container.R | ./image.sif
+
+
