@@ -1,6 +1,6 @@
 # reticulate_on_singularity_example_2
 
-Example 2 of using reticulate within a Singularity container.
+[An example of using reticulate within a Singularity container](https://github.com/richelbilderbeek/reticulate_on_singularity_examples/blob/master/README.md).
 
 Thanks to [myoung3](https://github.com/myoung3) for his
 [advice](https://github.com/rstudio/reticulate/issues/1044#issuecomment-1026915671)
