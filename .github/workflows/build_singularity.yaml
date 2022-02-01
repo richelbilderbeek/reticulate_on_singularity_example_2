@@ -1,0 +1,42 @@
+on:
+  push:
+  pull_request:
+
+name: build_singularity
+
+jobs:
+  build_singularity:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        singularity_version:
+          - '3.7.4'
+    container:
+      image: quay.io/singularity/singularity:v${{ matrix.singularity_version }}
+      options: --privileged
+
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Show singularity version
+        run: singularity version
+
+      - name: Download the container script file
+        run: wget https://raw.githubusercontent.com/kaufman-lab/build_containers/main/definition_files/geospatial_plus_ml__4.1.0.def
+
+      - name: Show the container script file
+        run: cat geospatial_plus_ml__4.1.0.def
+
+      - name: Build the Singularity container
+        run: sudo -E singularity --quiet build image.sif geospatial_plus_ml__4.1.0.def
+
+      - name: Test the container
+        run: singularity test image.sif
+
+      - name: Show help of container
+        run: singularity run-help image.sif
+
